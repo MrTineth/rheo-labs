@@ -6,6 +6,7 @@ import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
 import Grid from '@mui/material/Grid'
 import Divider from '@mui/material/Divider'
+import Image from 'next/image'
 import Link from 'next/link'
 import { StyledButton } from '@/components/core'
 import EmailIcon from '@/assets/icons/eva--email-outline.svg'
@@ -131,7 +132,13 @@ const HomeContact = () => {
                     },
                   }}
                 >
-                  <img src='/images/envelope-1.svg' alt='Footer contact' />
+                  <Image
+                    src='/images/envelope-1.svg'
+                    alt='Footer contact'
+                    width={500}
+                    height={400}
+                    unoptimized
+                  />
                 </Box>
                 <Box sx={{ mt: 4 }}>
                   <Link href='/contact' passHref>
