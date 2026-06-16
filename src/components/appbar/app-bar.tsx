@@ -135,7 +135,7 @@ const AppBar: FC = () => {
               sx={{
                 width: 'auto',
                 cursor: 'pointer',
-                height: shouldFloating ? 32 : 40,
+                height: shouldFloating ? 36 : 48,
                 transition: (theme: Theme) =>
                   theme.transitions.create(['transform', 'height']),
               }}

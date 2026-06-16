@@ -10,7 +10,6 @@ import { Link } from 'react-scroll'
 
 // assets
 import MouseIcon from '@/assets/icons/iconamoon--mouse-light.svg'
-import AppIcon from '@/assets/icon.png'
 
 // motion
 import { motion, AnimatePresence } from 'framer-motion'
@@ -63,60 +62,42 @@ const HomeHeroContent = () => {
           pb: { xs: 10, md: 12 },
         }}
       >
-        <Stack
-          direction='row'
+        <Box
           sx={(theme) => ({
             mb: 2,
             transition: theme.transitions.create(['all'], {
               duration: theme.transitions.duration.complex,
             }),
-            div: {
-              transition: theme.transitions.create(['all'], {
-                duration: theme.transitions.duration.complex,
-              }),
-            },
           })}
         >
-          <Box
-            sx={() => ({
-              width: 24,
-              height: 'auto',
-              mr: 1.5,
-              mt: '2px',
-            })}
-          >
-            <Box component='img' src={AppIcon.src} alt='' sx={{ width: '100%' }} />
-          </Box>
-          <Box>
-            <AnimatePresence mode='wait'>
-              <MotionTypography
-                key={currentIndex}
-                variants={{
-                  initial: { y: 20 },
-                  animate: { y: 0 },
-                  exit: { opacity: 0, y: -20 },
-                }}
-                initial='initial'
-                animate='animate'
-                exit='exit'
-                transition={{
-                  duration: 0.25,
-                  ease: 'easeInOut',
-                }}
-                sx={(theme) => ({
-                  fontSize: {
-                    xs: 17,
-                    md: 18,
-                  },
-                  fontWeight: '600',
-                  color: theme.palette.primary.main,
-                })}
-              >
-                {SERVICES_TEXTS[currentIndex]}
-              </MotionTypography>
-            </AnimatePresence>
-          </Box>
-        </Stack>
+          <AnimatePresence mode='wait'>
+            <MotionTypography
+              key={currentIndex}
+              variants={{
+                initial: { y: 20 },
+                animate: { y: 0 },
+                exit: { opacity: 0, y: -20 },
+              }}
+              initial='initial'
+              animate='animate'
+              exit='exit'
+              transition={{
+                duration: 0.25,
+                ease: 'easeInOut',
+              }}
+              sx={(theme) => ({
+                fontSize: {
+                  xs: 17,
+                  md: 18,
+                },
+                fontWeight: '600',
+                color: theme.palette.primary.main,
+              })}
+            >
+              {SERVICES_TEXTS[currentIndex]}
+            </MotionTypography>
+          </AnimatePresence>
+        </Box>
         <Box sx={{ textAlign: 'center' }}>
           <Typography
             component='h2'

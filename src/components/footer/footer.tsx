@@ -11,7 +11,7 @@ import {
   FooterSupportLinks,
 } from '@/components/footer'
 import { SocialLinks } from '@/components'
-import AppIcon from '@/assets/icon.png'
+import AppLogo from '@/assets/logo.png'
 import { AppConfig } from '@/configs'
 
 const Footer: FC = () => {
@@ -75,30 +75,19 @@ const Footer: FC = () => {
                   },
                 }}
               >
-                <Stack
-                  direction='row'
-                  gap={2}
+                <Box
                   sx={{
-                    alignItems: 'center',
                     mb: 2,
-                    justifyContent: { xs: 'center', md: 'flex-start' },
+                    textAlign: { xs: 'center', md: 'left' },
                   }}
                 >
                   <Box
                     component='img'
-                    src={AppIcon.src}
-                    alt=''
-                    sx={{ height: 32, width: 'auto' }}
+                    src={AppLogo.src}
+                    alt={AppConfig.appName}
+                    sx={{ width: { xs: 140, md: 140 }, height: 'auto' }}
                   />
-                  <Typography
-                    sx={{
-                      fontWeight: '700',
-                      fontSize: { xs: 17, md: 20 },
-                    }}
-                  >
-                    {AppConfig.appName}
-                  </Typography>
-                </Stack>
+                </Box>
                 <Stack
                   sx={{
                     maxWidth: { xs: '100%', md: '70%' },

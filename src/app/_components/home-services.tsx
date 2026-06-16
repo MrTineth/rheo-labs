@@ -16,9 +16,6 @@ import { useTheme } from '@mui/material/styles'
 // constants
 import { services } from '@/constants/service'
 
-// configs
-import { AppConfig } from '@/configs'
-
 type ServiceItemProps = {
   item: IService
 }

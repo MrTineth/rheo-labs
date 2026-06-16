@@ -30,6 +30,11 @@ const plugJakartaSans = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   title: AppConfig.appName,
   description: AppConfig.appDescription,
+  icons: {
+    icon: AppIcon.src,
+    shortcut: AppIcon.src,
+    apple: AppIcon.src,
+  },
 }
 
 export default function RootLayout({
