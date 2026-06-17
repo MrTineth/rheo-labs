@@ -14,7 +14,7 @@ import AppBarMobileMenu from './app-bar-mobile-menu'
 import { useWindowScroll } from 'react-use'
 import { useMediaQuery } from '@mui/material'
 import { useTheme, Theme } from '@mui/material/styles'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 
 // assets
 import AppIcon from '@/assets/icon.png'
@@ -25,7 +25,6 @@ const AppBar: FC = () => {
   // const scrollY = 0
   const mobileMatches = useMediaQuery(theme.breakpoints.down('md'))
 
-  const router = useRouter()
   const pathName = usePathname()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
@@ -55,15 +54,15 @@ const AppBar: FC = () => {
     }
   }, [shouldFloating, theme])
 
-  const onClickLogo = useCallback(() => {
-    if (typeof window !== 'undefined') {
+  const onClickLogo = useCallback(
+    (event: React.MouseEvent<HTMLAnchorElement>) => {
       if (pathName === '/') {
-        window.scrollTo({ top: 0, behavior: 'smooth' })
-      } else {
-        router.push('/')
+        event.preventDefault()
+        window.scrollTo({ top: 0, behavior: 'auto' })
       }
-    }
-  }, [pathName, router])
+    },
+    [pathName]
+  )
 
   return (
     <Fragment>
@@ -127,19 +126,28 @@ const AppBar: FC = () => {
             }}
           >
             <Box
+              component='a'
+              href='/'
               onClick={onClickLogo}
-              aria-label={'Back to home'}
-              component='img'
-              src={AppIcon.src}
-              alt=''
+              aria-label='Back to home'
               sx={{
-                width: 'auto',
-                cursor: 'pointer',
-                height: shouldFloating ? 36 : 48,
-                transition: (theme: Theme) =>
-                  theme.transitions.create(['transform', 'height']),
+                display: 'inline-flex',
+                textDecoration: 'none',
               }}
-            />
+            >
+              <Box
+                component='img'
+                src={AppIcon.src}
+                alt=''
+                sx={{
+                  width: 'auto',
+                  cursor: 'pointer',
+                  height: shouldFloating ? 36 : 48,
+                  transition: (theme: Theme) =>
+                    theme.transitions.create(['transform', 'height']),
+                }}
+              />
+            </Box>
             {mobileMatches ? (
               <Box sx={{ ml: 'auto', display: 'flex', alignItems: 'center' }}>
                 <AnimatedHamburgerMenu

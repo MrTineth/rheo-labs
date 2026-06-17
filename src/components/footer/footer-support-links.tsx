@@ -3,7 +3,6 @@
 import React, { FC, ReactNode } from 'react'
 import { Box, Typography } from '@mui/material'
 import MuiLink from '@mui/material/Link'
-import RouterLink from 'next/link'
 import { Theme } from '@mui/material'
 import { FooterSectionTitle } from '@/components/footer'
 import { supportLinks } from '@/constants/menus'
@@ -15,11 +14,9 @@ interface LinkItemProps {
 }
 
 const LinkItem: FC<LinkItemProps> = ({ label, path, icon }) => {
-  const isHashLink = path === '#'
-
   return (
     <MuiLink
-      component={isHashLink ? 'a' : RouterLink}
+      component='a'
       href={path}
       sx={{
         textDecoration: 'none',

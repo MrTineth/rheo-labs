@@ -1,9 +1,8 @@
 'use client'
 
-import React from 'react'
-import RouterLink from 'next/link'
+import React, { MouseEvent } from 'react'
+import { usePathname } from 'next/navigation'
 import Box from '@mui/material/Box'
-import MuiLink from '@mui/material/Link'
 import Typography from '@mui/material/Typography'
 import { Theme } from '@mui/material/styles'
 import { FooterSectionTitle } from '@/components/footer'
@@ -13,14 +12,24 @@ import { services } from '@/constants/service'
 import ArrowIcon from '@/assets/icons/material-symbols--call-made.svg'
 
 const FooterServicesLink = () => {
+  const pathname = usePathname()
+
+  const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    if (pathname === '/services') {
+      event.preventDefault()
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+    }
+  }
+
   return (
     <Box sx={{ textAlign: 'left' }}>
       <FooterSectionTitle title='Services' />
       {services.map((item, index) => (
-        <MuiLink
+        <Box
           key={String(index)}
-          component={RouterLink}
-          href={`/services#${item.slug}`}
+          component='a'
+          href='/services'
+          onClick={handleClick}
           sx={{
             display: 'flex',
             alignItems: 'center',
@@ -57,7 +66,7 @@ const FooterServicesLink = () => {
         >
           <Box component={ArrowIcon} sx={{ width: 18, height: 18 }} />
           <Typography sx={{ fontWeight: '500' }}>{item.title}</Typography>
-        </MuiLink>
+        </Box>
       ))}
     </Box>
   )

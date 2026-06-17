@@ -2,7 +2,6 @@
 
 import React from 'react'
 import Image from 'next/image'
-import Link from 'next/link'
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 import Grid from '@mui/material/Grid'
@@ -165,7 +164,7 @@ const HomeFeaturedServices = () => {
                     {item.description}
                   </Typography>
                   <Typography
-                    component={Link}
+                    component='a'
                     href={`/services#${item.slug}`}
                     sx={{
                       fontSize: 14,
@@ -195,11 +194,14 @@ const HomeFeaturedServices = () => {
           transition={{ duration: 0.45, delay: 0.3 }}
           sx={{ textAlign: 'center', mt: 6 }}
         >
-          <Link href='/services' passHref>
-            <StyledButton variant='contained' color='light' size='large'>
-              Explore All Services
-            </StyledButton>
-          </Link>
+          <StyledButton
+            href='/services'
+            variant='contained'
+            color='light'
+            size='large'
+          >
+            Explore All Services
+          </StyledButton>
         </Box>
       </Container>
     </Box>

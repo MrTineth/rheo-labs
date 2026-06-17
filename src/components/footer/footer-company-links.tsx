@@ -1,9 +1,8 @@
 'use client'
 
 import React, { FC, ReactNode } from 'react'
-import { Box, Typography } from '@mui/material'
-import MuiLink from '@mui/material/Link'
-import RouterLink from 'next/link'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
 import { Theme } from '@mui/material'
 import { FooterSectionTitle } from '@/components/footer'
 import { companyMenus } from '@/constants/menus'
@@ -16,8 +15,8 @@ interface LinkItemProps {
 
 const LinkItem: FC<LinkItemProps> = ({ label, path, icon }) => {
   return (
-    <MuiLink
-      component={RouterLink}
+    <Box
+      component='a'
       href={path}
       sx={{
         textDecoration: 'none',
@@ -93,7 +92,7 @@ const LinkItem: FC<LinkItemProps> = ({ label, path, icon }) => {
       >
         {icon}
       </Box>
-    </MuiLink>
+    </Box>
   )
 }
 

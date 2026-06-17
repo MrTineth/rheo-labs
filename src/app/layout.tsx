@@ -1,6 +1,5 @@
 import { JSX } from 'react'
 import type { Metadata } from 'next'
-import Image from 'next/image'
 import { Plus_Jakarta_Sans } from 'next/font/google'
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter'
 
@@ -46,16 +45,6 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={plugJakartaSans.variable}>
-        <div id='initial-loader' aria-live='polite' aria-busy='true'>
-          <Image
-            src={AppIcon}
-            alt=''
-            width={48}
-            height={48}
-            className='initial-loader-icon'
-            priority
-          />
-        </div>
         <AppRouterCacheProvider options={{ key: 'css' }}>
           <AppContextProvider>
             <MuiThemeProvider>

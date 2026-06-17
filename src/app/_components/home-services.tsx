@@ -12,6 +12,7 @@ import { motion } from 'framer-motion'
 
 // hooks
 import { useTheme } from '@mui/material/styles'
+import { usePathname } from 'next/navigation'
 
 // constants
 import { services } from '@/constants/service'
@@ -128,16 +129,27 @@ interface HomeServicesProps {
 
 const HomeServices = ({ hideHeader = false }: HomeServicesProps) => {
   const { palette } = useTheme()
+  const pathname = usePathname()
 
   useEffect(() => {
-    const hash = window.location.hash.replace('#', '')
-    if (!hash) return
+    const scrollToHash = () => {
+      const hash = window.location.hash.replace('#', '')
+      if (!hash) return
 
-    const element = document.getElementById(hash)
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      const element = document.getElementById(hash)
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
     }
-  }, [])
+
+    const timeoutId = window.setTimeout(scrollToHash, 100)
+    window.addEventListener('hashchange', scrollToHash)
+
+    return () => {
+      window.clearTimeout(timeoutId)
+      window.removeEventListener('hashchange', scrollToHash)
+    }
+  }, [pathname])
 
   return (
     <Box

@@ -1,10 +1,7 @@
 'use client'
 
-import React, { FC, ReactElement } from 'react'
-import Link from 'next/link'
-import { AnimatePresence, motion } from 'framer-motion'
+import React, { FC, MouseEvent, ReactElement } from 'react'
 import Box from '@mui/material/Box'
-import MuiLink from '@mui/material/Link'
 import Typography from '@mui/material/Typography'
 import { Theme } from '@mui/material/styles'
 import { usePathname } from 'next/navigation'
@@ -20,49 +17,63 @@ interface LinkItemProps {
 
 const LinkItem: FC<LinkItemProps> = ({ label, path, icon, onNavigate }) => {
   const pathName = usePathname()
+  const isActive = pathName === path
+
+  const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    if (pathName === path) {
+      event.preventDefault()
+      window.scrollTo({ top: 0, behavior: 'auto' })
+    }
+    onNavigate()
+  }
 
   return (
-    <MuiLink
+    <Box
+      component='a'
       href={path}
-      component={Link}
-      onClick={onNavigate}
-      sx={{
-        py: 1.2,
-        px: 2,
-        mb: 0.5,
-        borderRadius: 2,
-        display: 'flex',
-        alignItems: 'center',
-        gap: 1.5,
-        color: 'text.primary',
-        textDecoration: 'none',
-        ...(pathName === path && {
-          backgroundColor: 'primary.main',
-          color: '#fbfbfb',
-        }),
-        '&:hover': {
-          backgroundColor: 'primary.main',
-          color: '#fbfbfb',
-        },
-        '& svg': {
-          width: 18,
-          height: 'auto',
-          flexShrink: 0,
-        },
-      }}
+      onClick={handleClick}
+      sx={{ textDecoration: 'none' }}
     >
-      {icon}
-      <Typography
+      <Box
         component='span'
         sx={{
-          fontSize: 15,
-          fontWeight: 500,
-          color: 'inherit',
+          py: 1.2,
+          px: 2,
+          mb: 0.5,
+          borderRadius: 2,
+          display: 'flex',
+          alignItems: 'center',
+          gap: 1.5,
+          color: 'text.primary',
+          textDecoration: 'none',
+          ...(isActive && {
+            backgroundColor: 'primary.main',
+            color: '#fbfbfb',
+          }),
+          '&:hover': {
+            backgroundColor: 'primary.main',
+            color: '#fbfbfb',
+          },
+          '& svg': {
+            width: 18,
+            height: 'auto',
+            flexShrink: 0,
+          },
         }}
       >
-        {label}
-      </Typography>
-    </MuiLink>
+        {icon}
+        <Typography
+          component='span'
+          sx={{
+            fontSize: 15,
+            fontWeight: 500,
+            color: 'inherit',
+          }}
+        >
+          {label}
+        </Typography>
+      </Box>
+    </Box>
   )
 }
 
@@ -72,25 +83,22 @@ interface Props {
 }
 
 const AppBarMobileMenu: FC<Props> = ({ open, onClose }) => {
+  if (!open) {
+    return null
+  }
+
   return (
-    <AnimatePresence>
-      {open && (
-        <Box
-          component={motion.div}
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: 'auto' }}
-          exit={{ opacity: 0, height: 0 }}
-          transition={{ duration: 0.25, ease: 'easeInOut' }}
-          sx={{
-            position: 'absolute',
-            top: '100%',
-            left: 0,
-            right: 0,
-            mt: 1,
-            overflow: 'hidden',
-            zIndex: 1,
-          }}
-        >
+    <Box
+      sx={{
+        position: 'absolute',
+        top: '100%',
+        left: 0,
+        right: 0,
+        mt: 1,
+        overflow: 'hidden',
+        zIndex: 1,
+      }}
+    >
           <Box
             sx={{
               py: 1.5,
@@ -126,11 +134,9 @@ const AppBarMobileMenu: FC<Props> = ({ open, onClose }) => {
               }}
             >
               <AppBarSwitchDarkMode />
-            </Box>
-          </Box>
         </Box>
-      )}
-    </AnimatePresence>
+      </Box>
+    </Box>
   )
 }
 

@@ -11,9 +11,6 @@ import { StyledButton } from '@/components/core'
 // configs
 import { AppConfig } from '@/configs'
 
-// navigation
-import Link from 'next/link'
-
 const HomeCTA = () => {
   return (
     <Box
@@ -66,11 +63,9 @@ const HomeCTA = () => {
               Partner with {AppConfig.appName} to design, develop, and ship
               software that scales with your business.
             </Typography>
-            <Link href='/contact'>
-              <StyledButton variant='contained' color='light' size='large'>
-                Start a Project
-              </StyledButton>
-            </Link>
+            <StyledButton href='/contact' variant='contained' color='light' size='large'>
+              Start a Project
+            </StyledButton>
           </Box>
         </Box>
       </Container>

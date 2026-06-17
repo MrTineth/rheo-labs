@@ -1,9 +1,8 @@
 'use client'
 
 import React, { FC, ReactNode } from 'react'
-import { styled } from '@mui/system'
+import { styled, Theme, type CSSObject } from '@mui/material/styles'
 import Box from '@mui/material/Box'
-import { Theme } from '@mui/material'
 import { ButtonProps } from '@mui/material/Button'
 
 interface BaseButtonProps
@@ -13,17 +12,21 @@ interface BaseButtonProps
   size?: 'small' | 'medium' | 'large'
   rounded?: boolean
 }
-interface StyledButtonRootProps extends BaseButtonProps {
-  theme?: Theme
-}
+type StyledButtonRootProps = BaseButtonProps
 
-const StyledButtonRoot = styled('button', {
-  shouldForwardProp: (prop) =>
-    prop !== 'variant' &&
-    prop !== 'color' &&
-    prop !== 'size' &&
-    prop !== 'rounded',
-})<StyledButtonRootProps>(({ theme, color, variant, size, rounded }) => ({
+const shouldForwardButtonProp = (prop: PropertyKey) =>
+  prop !== 'variant' &&
+  prop !== 'color' &&
+  prop !== 'size' &&
+  prop !== 'rounded'
+
+const buttonStyles = ({
+  theme,
+  color,
+  variant,
+  size,
+  rounded,
+}: StyledButtonRootProps & { theme: Theme }) => ({
   cursor: 'pointer',
   minWidth: 40,
   fontSize: 14,
@@ -41,6 +44,7 @@ const StyledButtonRoot = styled('button', {
   WebkitTapHighlightColor: 'transparent',
   verticalAlign: 'middle',
   outline: 'none !important',
+  textDecoration: 'none',
   transition: theme.transitions.create(['transform']),
 
   // hover
@@ -152,18 +156,26 @@ const StyledButtonRoot = styled('button', {
     variant === 'text' && {
       color: theme.palette.primary.contrastText,
     }),
-}))
+}) as CSSObject
+
+const StyledButtonRoot = styled('button', {
+  shouldForwardProp: shouldForwardButtonProp,
+})<StyledButtonRootProps>(buttonStyles)
+
+const StyledButtonAnchor = styled('a', {
+  shouldForwardProp: shouldForwardButtonProp,
+})<StyledButtonRootProps>(buttonStyles)
 
 interface Props extends BaseButtonProps {
   children: ReactNode
-  // endIcon?: ReactNode
-  // startIcon?: ReactNode
+  href?: string
 }
 
 const StyledButton: FC<Props> = (props: Props) => {
-  const { children, onClick, startIcon, endIcon, rounded, ...rest } = props
-  return (
-    <StyledButtonRoot onClick={onClick} rounded={rounded} {...rest}>
+  const { children, onClick, startIcon, endIcon, rounded, href, ...rest } = props
+
+  const content = (
+    <>
       {startIcon && (
         <Box component='span' sx={{ display: 'inherit', mr: 1, ml: -0.5 }}>
           {startIcon}
@@ -175,6 +187,25 @@ const StyledButton: FC<Props> = (props: Props) => {
           {endIcon}
         </Box>
       )}
+    </>
+  )
+
+  if (href) {
+    return (
+      <StyledButtonAnchor href={href} rounded={rounded} {...rest}>
+        {content}
+      </StyledButtonAnchor>
+    )
+  }
+
+  return (
+    <StyledButtonRoot
+      onClick={onClick}
+      type={rest.type ?? 'button'}
+      rounded={rounded}
+      {...rest}
+    >
+      {content}
     </StyledButtonRoot>
   )
 }

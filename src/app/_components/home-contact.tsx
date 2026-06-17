@@ -7,7 +7,6 @@ import Typography from '@mui/material/Typography'
 import Grid from '@mui/material/Grid'
 import Divider from '@mui/material/Divider'
 import Image from 'next/image'
-import Link from 'next/link'
 import { StyledButton } from '@/components/core'
 import EmailIcon from '@/assets/icons/eva--email-outline.svg'
 import PhoneIcon from '@/assets/icons/eva--phone-outline.svg'
@@ -141,21 +140,20 @@ const HomeContact = () => {
                   />
                 </Box>
                 <Box sx={{ mt: 4 }}>
-                  <Link href='/contact' passHref>
-                    <StyledButton
-                      variant='contained'
-                      size='large'
-                      color='primary'
-                      endIcon={
-                        <Box
-                          component={SendIcon}
-                          sx={{ mr: 1, width: 18, height: 18 }}
-                        />
-                      }
-                    >
-                      Start a Project
-                    </StyledButton>
-                  </Link>
+                  <StyledButton
+                    href='/contact'
+                    variant='contained'
+                    size='large'
+                    color='primary'
+                    endIcon={
+                      <Box
+                        component={SendIcon}
+                        sx={{ mr: 1, width: 18, height: 18 }}
+                      />
+                    }
+                  >
+                    Start a Project
+                  </StyledButton>
                 </Box>
               </Grid>
             </Grid>
